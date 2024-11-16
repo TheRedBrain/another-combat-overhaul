@@ -25,28 +25,13 @@ repositories {
 		url = "https://maven.terraformersmc.com/"
 	}
 
-	// Better Combat, Stamina Attributes
-	maven {
-		name = "Modrinth"
-		url = "https://api.modrinth.com/maven"
-		content {
-			includeGroup "maven.modrinth"
-		}
-	}
-
-	// Player Animator
-	maven {
-		name "KosmX's maven"
-		url 'https://maven.kosmx.dev/'
-	}
-
 }
 
 loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"modid" {
+		"healthyfood" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}
@@ -64,24 +49,16 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	// Cloth Config
-	modImplementation ("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config}")
-
-	// Player Animation Lib
-	modImplementation("dev.kosmx.player-anim:player-animation-lib-fabric:${project.player_anim}")
-
-	// Better Combat
-	modImplementation "maven.modrinth:better-combat:${project.better_combat}"
-
-	// Stamina Attributes
-	modImplementation "maven.modrinth:stamina-attributes:${project.stamina_attributes}"
+	modImplementation ("me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}")
 
 }
 
 processResources {
 	inputs.property "version", project.version
+	filteringCharset "UTF-8"
 
 	filesMatching("fabric.mod.json") {
-		expand "version": project.version
+		expand(project.properties)
 	}
 }
 
@@ -130,8 +107,6 @@ if(project.hasProperty('release_type')) {
 			relations {
 				requiredDependency 'fabric-api'
 				requiredDependency 'cloth-config'
-				requiredDependency 'better-combat-by-daedelus'
-				requiredDependency 'stamina-attributes'
 			}
 
 			mainArtifact(remapJar)
@@ -160,8 +135,6 @@ if(project.hasProperty('release_type')) {
 			// The type can either be `project` or `version`
 			required.project 'fabric-api'
 			required.project 'cloth-config'
-			required.project 'better-combat'
-			required.project 'stamina-attributes'
 		}
 	}
 
