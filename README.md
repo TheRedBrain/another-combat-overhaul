@@ -8,6 +8,6 @@ Maximum fullness is controlled by the "healthyfood:generic.maximum_fullness" ent
 
 Food adds 1 fullness by default, exceptions can be added via the server config.
 
-Eating food will heal its previous saturation / 2, but at least 1 health or half a heart.
+Eating food will heal its previous saturation / 2, but at least 1 health (half a heart).
 
 This ensured that food items added by other mods are compatible out of the box.
